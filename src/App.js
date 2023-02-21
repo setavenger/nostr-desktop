@@ -1,25 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import {ChatApp} from "./components/ChatApp";
+import relays from "./nostr/relays"
+import {loadKeys} from "./settings/user";
+import {useEffect, useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+
+    }, [])
+    loadKeys().then(() => {
+        setLoading(false)
+    })
+    return (
+        <div className="App">
+            {!loading && <ChatApp relays={relays}/>}
+            {loading && <div>Loading...</div>}
+
+        </div>
+    );
 }
 
 export default App;
